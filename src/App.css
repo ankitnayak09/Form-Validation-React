@@ -17,11 +17,61 @@ body {
 	color: var(--color-font);
 }
 
-form div,
+h1 {
+	/* background: linear-gradient(#eee, #333); */
+	background: -webkit-linear-gradient(
+		var(--color-secondary),
+		var(--color-font)
+	);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	border-bottom: 0.5rem solid var(--color-font);
+	transition: 0.3s;
+}
+
+h1:hover {
+	letter-spacing: 2px;
+}
+
+.form-group,
 .data-group {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 	width: 400px;
-	margin-inline: auto;
+	margin: 0.5rem auto;
+	border: 2px solid var(--color-secondary);
+	padding: 0.5rem 2rem;
+	border-radius: 1rem;
+}
+
+.form-group input {
+	background-color: var(--color-font);
+	outline: none;
+	border: 2px solid transparent;
+	transition: 0.3s;
+}
+.form-group input:focus {
+	border: 2px solid black;
+	padding: 0.5rem;
+}
+
+.form-group:has(input:focus) {
+	border: 2px solid black;
+	font-weight: bold;
+}
+
+button {
+	margin: 2rem 0;
+}
+
+.error {
+	background-color: var(--color-secondary);
+	color: red;
+	font-weight: bold;
+	text-align: center;
+	display: inline-block;
+	/* padding: 0.5rem 0; */
+	margin: 1rem;
+	transition: 0.5s;
 }

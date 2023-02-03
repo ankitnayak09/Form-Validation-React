@@ -3,7 +3,6 @@ import './App.css'
 
 function App() {
   const [name, setName] = useState('')
-  const [error, setError] = useState('')
   const [email, setEmail] = useState('')
   const [phone, setPhone] = useState('')
   const [city, setCity] = useState('')
@@ -12,6 +11,7 @@ function App() {
   const [emergencyNumber, setEmergencyNumber] = useState('')
   const [rel2Student, setRel2Student] = useState('')
 
+  const [error, setError] = useState('')
   const [isSubmit, setIsSubmit] = useState(false)
 
   const isValid = () => {
@@ -19,27 +19,23 @@ function App() {
       setError("All Fields Mandatory")
       return false;
     }
-    if (!name.match(/^[a-zA-Z]/)) {
-      setError("Name Should Only Contain Alphabets")
+    if (!name.match(/([a-zA-Z]+( [a-zA-Z]+)+)/)) {
+      setError("Full Name Should be More than 2 Words")
       return false;
     }
-    if (!email.includes('@')) {
-      setError("Email Must Contain '@'")
+    if (!email.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/)) {
+      setError("This is not an Email.")
       return false;
     }
-    if (!phone.match(/[0-9]/)) {
-      setError("Phone Number Should be only Numeric ")
+    if (!phone.match(/^[0-9]{10}$/)) {
+      setError("Phone Number Should be only Numeric and of 10 Digits ")
       return false;
-    }
-    if (phone.length != 10) {
-      setError("Phone Number Should be Only 10 Digits")
-      return false
     }
     if (!city.match(/[a-zA-Z]/)) {
       setError("City Name Cannot be Number")
       return false;
     }
-    if (!parentName.match(/[a-zA-Z]/)) {
+    if (!parentName.match(/([a-zA-Z]+( [a-zA-Z]+)+)/)) {
       setError("Parent/Guardian Name Cannot be Numbers")
       return false;
     }
@@ -51,12 +47,8 @@ function App() {
       setError("Parent's/Guardian's Number Should be of 10 Digits")
       return false
     }
-    if (!emergencyNumber.match(/[0-9]/)) {
-      setError("Emergency Number Can Only be Numeric Digits")
-      return false;
-    }
-    if (emergencyNumber.length != 10) {
-      setError("Emergency Number should be of 10 Digits")
+    if (!emergencyNumber.match(/^[0-9]{10}$/)) {
+      setError("Emergency Number Can Only be Numeric and 10 Digits")
       return false;
     }
     return true;
@@ -77,7 +69,9 @@ function App() {
         <>
           <h1>School Registration Form</h1>
           <form onSubmit={handleSubmit}>
-            {error}
+            <div className='error'>
+              {error}
+            </div>
             <div className="form-group">
               <label>Full Name: </label>
               <input type="text" name="name" onChange={(e) => setName(e.target.value)} value={name} />
